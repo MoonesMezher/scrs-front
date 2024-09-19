@@ -1,0 +1,277 @@
+.sections-template {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 25px;
+}
+
+.sections-template-preview {
+    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+}
+
+.product:hover img {
+    transform: scale(1.1) rotate(1deg);
+}
+
+.griedient-splash {
+    background: linear-gradient(171.57deg, #2D3F4F 0.66%, #2C8FA6 64.7%);
+}
+
+.grid-products {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 25px;
+}
+
+.grid-products-view {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 25px;
+    color: #dee2e5;
+}
+
+@media screen and (min-width: 767px){
+    .sections-template {
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    }
+}
+
+.slick-track {
+    display: flex !important;
+    gap: 15px !important;
+    padding: 10px !important;
+}
+
+.bg-greadient {
+    background: linear-gradient(269.84deg, #4182F9 -38.97%, rgba(65, 130, 249, 0.00520833) 90.01%);
+}
+
+.active-owner-link {
+    background-color: #1FA5B8;
+}
+
+.active-owner-link h2,
+.active-owner-link path {
+    color: white !important;
+}
+
+.owner-link:hover {
+    background-color: #1FA5B8;
+}
+
+.owner-link:hover h2,
+.owner-link:hover path {
+    color: white !important;
+}
+
+.owner-sections-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+}
+
+.owner-products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+}
+
+@media screen and (max-height: 750px) {
+    .hero-show {
+        height: 750px !important;
+    }
+    .hero-cont-details {
+        min-height: 70vh !important;;
+    }
+}
+
+@media screen and (max-height: 650px) {
+    .hero-show {
+        height: 750px !important;
+    }
+    .hero-cont-details {
+        min-height: 90vh !important;;
+    }
+}
+
+@media screen and (max-height: 580px) {
+    .hero-show {
+        height: 750px !important;
+    }
+    .hero-cont-details {
+        min-height: 110vh !important;;
+    }
+}
+
+@media screen and (max-height: 520px) {
+    .hero-show {
+        height: 750px !important;
+    }
+    .hero-cont-details {
+        min-height: 120vh !important;;
+    }
+}
+
+@media screen and (max-height: 490px) {
+    .hero-show {
+        height: 750px !important;
+    }
+    .hero-cont-details {
+        min-height: 128vh !important;;
+    }
+}
+
+@media screen and (max-height: 470px) {
+    .hero-show {
+        height: 750px !important;
+    }
+    .hero-cont-details {
+        min-height: 132vh !important;;
+    }
+}
+
+@media screen and (max-height: 460px) {
+    .hero-show {
+        height: 750px !important;
+    }
+    .hero-cont-details {
+        min-height: 135vh !important;;
+    }
+}
+
+@media screen and (max-height: 450px) {
+    .hero-show {
+        height: 750px !important;
+    }
+    .hero-cont-details {
+        min-height: 138vh !important;;
+    }
+}
+
+@media screen and (max-height: 444px) {
+    .hero-show {
+        height: 750px !important;
+    }
+    .hero-cont-details {
+        min-height: 141vh !important;;
+    }
+}
+
+@media screen and (max-height: 436px) {
+    .hero-show {
+        height: 750px !important;
+    }
+    .hero-cont-details {
+        min-height: 143vh !important;;
+    }
+}
+
+@media screen and (max-height: 424px) {
+    .hero-show {
+        height: 750px !important;
+    }
+    .hero-cont-details {
+        min-height: 145vh !important;;
+    }
+}
+
+@media screen and (max-height: 412px) {
+    .hero-show {
+        height: 750px !important;
+    }
+    .hero-cont-details {
+        min-height: 150vh !important;;
+    }
+}
+
+@media screen and (max-height: 407px) {
+    .hero-show {
+        height: 750px !important;
+    }
+    .hero-cont-details {
+        min-height: 155vh !important;;
+    }
+}
+
+@media screen and (max-height: 400px) {
+    .hero-show {
+        height: 750px !important;
+    }
+    .hero-cont-details {
+        min-height: 160vh !important;;
+    }
+}
+
+@media screen and (max-height: 390px) {
+    .hero-show {
+        height: 750px !important;
+    }
+    .hero-cont-details {
+        min-height: 161vh !important;;
+    }
+
+    .hero-cont-details .img-container {
+        width: 160px;
+        height: 160px;
+    }
+}
+
+@media screen and (max-height: 385px) {
+    .hero-show {
+        height: 750px !important;
+    }
+    .hero-cont-details {
+        min-height: 165vh !important;;
+    }
+}
+
+@media screen and (max-height: 375px) {
+    .hero-show {
+        height: 750px !important;
+    }
+    .hero-cont-details {
+        min-height: 170vh !important;;
+    }
+}
+
+@media screen and (max-height: 365px) {
+    .hero-show {
+        height: 750px !important;
+    }
+    .hero-cont-details {
+        min-height: 175vh !important;;
+    }
+}
+
+@media screen and (max-height: 355px) {
+    .hero-show {
+        height: 750px !important;
+    }
+    .hero-cont-details {
+        min-height: 180vh !important;;
+    }
+}
+
+@media screen and (max-height: 580px) {
+    .login {
+        position: static !important;
+        transform: translate(0, 0) !important;
+    }
+}
+
+@media screen and (max-height: 360px) {
+    .layout-mobile {
+        display: flex !important;
+        gap: 10px !important;
+        align-items: center !important;
+    }
+
+    .links-mobile {
+        display: none !important;
+    }
+
+    .mobile-link {
+        margin-top: 0 !important;
+    }
+}
+
+

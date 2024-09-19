@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+#root {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  overflow: hidden;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Cairo", sans-serif;
+}
+
+@media screen and (min-width: 1200px) {
+  html {
+    font-size: 18px !important;
+  }
+}
+
+@media screen and (max-height: 500px) {
+  html {
+    font-size: 10px !important;
+  }
+}
+
+.slick-slider {
+  margin: 0 !important;
+  padding: 0 !important;  
+}
