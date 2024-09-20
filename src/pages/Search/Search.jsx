@@ -20,7 +20,7 @@ const Search = () => {
     const to = useNavigate()
 
     if(checkFromToken(acc, account)) {
-        to('/check/'+account)
+        to('/code')
     }
 
     useEffect(() => {
@@ -50,7 +50,7 @@ const Search = () => {
                 // console.log(err);
                 if(err.response?.data.state === 'empty') {
                     localStorage.removeItem('user')
-                    to('/check/'+acc.token)
+                    to('/code')
                 }
             })
             .finally(res => {

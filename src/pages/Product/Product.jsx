@@ -25,7 +25,7 @@ const Product = () => {
     const to = useNavigate();
 
     if(checkFromToken(acc, account)) {
-        to('/check/'+account)
+        to('/code')
     }
 
 
@@ -52,6 +52,10 @@ const Product = () => {
     const [show, setShow] = useState(false);
 
     const handleAdd = () => {
+        if(checkFromToken(acc, account)) {
+            to('/code')
+        }
+        
         setLoading(true)
         axios.post(API.ORDER.ADD, {
             count,
@@ -68,14 +72,14 @@ const Product = () => {
                     
                     setTimeout(() => {
                         setShow(false)
-                        to('/show/'+acc.token)
+                        // to('/show/'+acc.token)
                     }, 3000)
                 }
             })
             .catch(err => {
                 if(err.response?.data.state === 'empty') {
                     localStorage.removeItem('user')
-                    to('/check/'+acc.token)
+                    to('/code')
                 } else if(err.response?.data?.state === 'failed') {
                     setError(err.response.data.message)
                 } else {
@@ -102,7 +106,7 @@ const Product = () => {
 
     return (<>
         <div className={`w-full min-h-screen ${product? '':'scale-0'}`}>
-            <div className="w-full h-[55vh] relative">
+            <div className="w-full h-auto aspect-square min-w-[600px]:h-[55vh] relative">
                 <img src={main+product?.image} alt="product" className="w-full h-full"/>
                 <div className='absolute left-[50%] translate-x-[-50%] bottom-[-20px] w-fit z-40'>
                     <div className='rounded-[30px] flex justify-center items-center bg-white overflow-hidden shadow-md'>
@@ -117,7 +121,14 @@ const Product = () => {
                 </div>
             </div>
             <div className="container mx-auto px-2 mt-14 pb-10 flex flex-col gap-[14px]" dir='rtl'>    
-                <div className='rounded-[10px] bg-[#FFFFFF] shadow-md p-[22px] w-full'>
+                <div className={`rounded-[10px] bg-[#FFFFFF] shadow-md p-[22px] w-full duration-300 ${count > 0? 'scale-100':'scale-0 opacity-0'}`}>
+                    <h1 className='text-right text-[1.25rem] font-medium leading-[37px]'>الإجمالي:</h1>
+                    <h2 className='text-[#F21414] text-[1.5rem] font-bold leading-[45px] text-left' dir='ltr' ref={price}>{count * product?.price} s.p</h2>
+                </div>
+                <div className={`bg-[#F21414] p-[20px] rounded-[30px] rounded-se-[0] text-white w-fit mx-auto mt-0 shadow-md duration-300 hover:scale-105 cursor-pointer ${count === 0?'scale-0':'scale-100'}`} onClick={handleAdd} ref={add}>
+                    إضافة الى السلة
+                </div>
+                <div className={`rounded-[10px] bg-[#FFFFFF] shadow-md p-[22px] w-full ${count > 0?'mt-0':'mt-[-240px]'}`}>
                     <h1 className='text-right text-[1.25rem] font-medium leading-[37px]'>{product?.title}</h1>
                     <h2 className='text-[#F21414] text-[1.5rem] font-bold leading-[45px] text-left' ref={itemPrice} dir='ltr'>{product?.price} s.p</h2>
                 </div>
@@ -131,13 +142,6 @@ const Product = () => {
                     <h1 className='text-right text-[1.25rem] font-medium leading-[28px]'>إضافة ملاحظات:</h1>
                     <textarea rows={5} className='w-full bg-[#F8F8F8] rounded-[10px] mt-3 focus:outline-none p-2 h-full outline-none border-none' placeholder='بدون جبن' onChange={(e) => setNote(e.target.value)}> 
                     </textarea>
-                </div>
-                <div className={`rounded-[10px] bg-[#FFFFFF] shadow-md p-[22px] w-full duration-300 ${count > 0? 'scale-100':'scale-0 opacity-0'}`}>
-                    <h1 className='text-right text-[1.25rem] font-medium leading-[37px]'>الإجمالي:</h1>
-                    <h2 className='text-[#F21414] text-[1.5rem] font-bold leading-[45px] text-left' dir='ltr' ref={price}>{count * product?.price} s.p</h2>
-                </div>
-                <div className={`bg-[#F21414] p-[20px] rounded-[30px] rounded-se-[0] text-white w-fit mx-auto mt-5 shadow-md duration-300 hover:scale-105 cursor-pointer ${count === 0?'scale-0':'scale-100'}`} onClick={handleAdd} ref={add}>
-                    إضافة الى السلة
                 </div>
             </div>
             <Toast show={show} isScale={true}>

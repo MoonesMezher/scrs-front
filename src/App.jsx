@@ -35,6 +35,7 @@ import Check from './pages/Check/Check'
 import { useAccountHook } from './hooks/useAccountHook'
 import View from './pages/View/View'
 import { SocketContext } from './context/socketContext'
+import Code from './pages/Code/Code'
 
 function App() {
     const { socket } = useContext(SocketContext);
@@ -93,7 +94,7 @@ function App() {
         .catch(err => {
           if(err.response?.data.state === 'empty') {
             localStorage.clear();
-            to('/')
+            to('/code')
           }
         })
 
@@ -122,6 +123,7 @@ function App() {
     <Layout>
     <Routes>
       <Route path='/' element={<Home/>}/>
+      <Route path='/code' element={<Code/>}/>
       <Route path='/admin/ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789' element={adminToken? <Admin/>: <Navigate to={'/login-admin'}/>}/>      
       <Route path='/admin/ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/:id' element={adminToken? <Admin/>: <Navigate to={'/login-admin'}/>}/>      
       <Route path='/admin/ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/list' element={adminToken? <AdminList/>: <Navigate to={'/login-admin'}/>}/>

@@ -39,6 +39,7 @@ const Layout = ({ children }) => {
             || pathname?.includes('/check')
             || pathname?.includes('/view')
             || pathname?.includes('/product')
+            || pathname?.includes('/code')
         )
     }, [pathname]);
 
@@ -68,7 +69,7 @@ const Layout = ({ children }) => {
                 .catch(err => {
                     if(err.response?.data.state === 'empty') {
                         localStorage.removeItem('user')
-                        to('/check/'+acc.token)
+                        to('/code')
                     }
                 })
                 .finally(res => {
@@ -94,7 +95,7 @@ const Layout = ({ children }) => {
                     // console.log(err)
                     if(err.response?.data.state === 'empty') {
                         localStorage.removeItem('user')
-                        to('/check/'+acc.token)
+                        to('/code')
                     }
                 })
                 .finally(res => {

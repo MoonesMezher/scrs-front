@@ -36,7 +36,7 @@ const Show = () => {
     const { socket } = useContext(SocketContext);
 
     if(checkFromToken(acc, account)) {
-        to('/check/'+account)
+        to('/code')
     }
     
     const [loading, setLoading] = useState(false)
@@ -106,6 +106,10 @@ const Show = () => {
     const [show3, setShow3] = useState(false);
 
     const handleClick = () => {
+        if(checkFromToken(acc, account)) {
+            to('/code')
+        }
+        
         axios.post(API.MESSAGES.ADDCOMIC, null, {
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('user')
@@ -120,7 +124,7 @@ const Show = () => {
             .catch(err => {
                 if(err.response?.data.state === 'empty') {
                     localStorage.removeItem('user')
-                    to('/check/'+acc.token)
+                    to('/code')
                 }
             })
             .finally(res => {

@@ -32,7 +32,7 @@ const ProductCard = ({ info, index, setShow }) => {
             .catch(err => {
                 if(err.response?.data.state === 'empty') {
                     localStorage.removeItem('user')
-                    to('/check/'+account.token)
+                    to('/code')
                 }
             })
             .finally(res => {

@@ -61,7 +61,7 @@ const View = () => {
             return;
         }
         if(!acc?.services.find(e => e.name === 'View')) {
-            to('/check/'+acc?.token)
+            to('/code');
         }
     }, [acc])
 

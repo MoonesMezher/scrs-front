@@ -25,7 +25,7 @@ const Shop = () => {
     const { account: acc } = useAccountHook()
 
     if(checkFromToken(acc, account)) {
-        to('/check/'+account)
+        to('/code')
     }
 
     useEffect(() => {
@@ -71,7 +71,7 @@ const Shop = () => {
                 console.log(err)
                 if(err.response?.data.state === 'empty') {
                     localStorage.removeItem('user')
-                    to('/check/'+acc.token)
+                    to('/code')
                 }
             })
             .finally(res => {
@@ -83,6 +83,10 @@ const Shop = () => {
     const [show5, setShow5] = useState(false);
 
     const handleAddCart = () => {
+        if(checkFromToken(acc, account)) {
+            to('/code')
+        }
+        
         if(orders.length === 0) {
             setShow4('يجب أن تحتوي سلتك على طلب واحد على الأقل')
             setTimeout(() => {
@@ -104,13 +108,15 @@ const Shop = () => {
                     setPrice(res.data.price)
                     setShow5('تم تأكيد الطلب بنجاح')
                     socket?.emit('send', {accId: acc?.account?._id, type: 'orders'})
-                    to('/show/'+acc?.token)
+                    setTimeout(() => {
+                        to('/show/'+acc?.token)
+                    }, 1000)
                 }
             })
             .catch(err => {    
                 if(err.response?.data.state === 'empty') {
                     localStorage.removeItem('user')
-                    to('/check/'+acc.token)
+                    to('/code')
                 } else if(err.response.data.message) {
                     setShow4(err.response.data.message)
                     setAdd(!add);
@@ -143,7 +149,7 @@ const Shop = () => {
             .catch(err => {
                 if(err.response?.data.state === 'empty') {
                     localStorage.removeItem('user')
-                    to('/check/'+acc.token)
+                    to('/code')
                 }
             })
             .finally(res => {

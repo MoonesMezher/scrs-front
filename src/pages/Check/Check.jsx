@@ -22,8 +22,10 @@ const Check = ({ setUser }) => {
     const { account: acc, dispatch } = useAccountHook();
 
     useEffect(() => {
+        localStorage.removeItem('account');
+
         if(!account) {
-            to('/')
+            to('/code')
         }
 
         setLoadingPage(true)
@@ -37,7 +39,7 @@ const Check = ({ setUser }) => {
                 if(err.response.data.state === 'block') {
                     to('/not-active')
                 } else {
-                    to('/')
+                    to('/code')
                 }
             })
             .finally(res => {
@@ -50,6 +52,22 @@ const Check = ({ setUser }) => {
     const [show, setShow] = useState(false);
     const [code, setCode] = useState("");
     const [error, setError] = useState(false);
+
+    useEffect(() => {
+        if(localStorage.getItem('user')) {
+            axios.delete(API.USERS.DELETE, {
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('user')
+                }
+            })
+                .then(res => {
+                    localStorage.removeItem('user');
+                })
+                .catch(err => {
+
+                })
+        }
+    }, [])
 
     const handleLogin = () => {
         setLoading(true);
