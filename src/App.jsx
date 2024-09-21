@@ -18,7 +18,6 @@ import AddSection from './pages/AddSection/AddSection'
 import AddProduct from './pages/AddProduct/AddProduct'
 import AdminSponsers from './pages/AdminSponsers/AdminSponsers'
 import OwnerSettings from './pages/OwnerSettings/OwnerSettings'
-import Search from './pages/Search/Search'
 import SeeItems from './pages/SeeItems/SeeItems'
 import NotActive from './pages/NotActive/NotActive'
 import axios from 'axios'
@@ -29,13 +28,15 @@ import AdminServicesJoin from './pages/AdminServicesJoin/AdminServicesJoin'
 import AdminServicesShow from './pages/AdminServicesShow/AdminServicesShow'
 import OwnerTables from './pages/OwnerTables/OwnerTables'
 import AllOrders from './pages/AllOrders/AllOrders'
-import { io } from 'socket.io-client'
 import { useAlertHooks } from './hooks/useAlertHooks'
 import Check from './pages/Check/Check'
 import { useAccountHook } from './hooks/useAccountHook'
 import View from './pages/View/View'
 import { SocketContext } from './context/socketContext'
 import Code from './pages/Code/Code'
+import { tableContext } from './context/tableContext'
+import OwnerMessagesTables from './pages/OwnerMessagesTables/OwnerMessagesTables'
+import OwnerOrdersTables from './pages/OwnerOrdersTables/OwnerOrdersTables'
 
 function App() {
     const { socket } = useContext(SocketContext);
@@ -46,13 +47,17 @@ function App() {
 
     const { account } = useAccountHook();
 
+    const { dispatch: tableDispatch } = useContext(tableContext);
+
     useEffect(() => {  
       socket?.on('recive', data => {
-        // console.log("RECIVE:", data)
-        if(data === 'messages') {
+        console.log("RECIVE:", data)
+        if(data.type === 'messages') {
             dispatch({ type: 'ADD', payload: 2 })
-        } else if(data === 'orders') {
+            tableDispatch({type: 'ADD', payload: 'm'+data.table})
+        } else if(data.type === 'orders') {
             dispatch({ type: 'ADD', payload: 1 })
+            tableDispatch({type: 'ADD', payload: 'o'+data.table})
         } else {
             dispatch({ type: 'ADD', payload: 3 })
         }
@@ -148,8 +153,10 @@ function App() {
       <Route path='/owner/all-orders/' element={ownerToken?<AllOrders/>: <Navigate to={"/login"}/>}/>
       <Route path='/owner/section/edit/:id' element={ownerToken?<AddSection/>: <Navigate to={"/login"}/>}/>      
       <Route path='/owner/product/edit/:id' element={ownerToken?<AddProduct/>: <Navigate to={"/login"}/>}/>      
-      <Route path='/owner/messages' element={ownerToken?<OwnerMessages/>: <Navigate to={"/login"}/>}/>      
-      <Route path='/owner/orders' element={ownerToken?<OwnerOrders/>: <Navigate to={"/login"}/>}/>      
+      <Route path='/owner/messages' element={ownerToken?<OwnerMessagesTables/>: <Navigate to={"/login"}/>}/>      
+      <Route path='/owner/orders' element={ownerToken?<OwnerOrdersTables/>: <Navigate to={"/login"}/>}/>   
+      <Route path='/owner/messages/:id' element={ownerToken?<OwnerMessages/>: <Navigate to={"/login"}/>}/>      
+      <Route path='/owner/orders/:id' element={ownerToken?<OwnerOrders/>: <Navigate to={"/login"}/>}/>      
       <Route path='/owner/statistcis' element={ownerToken?<OwnerStatistics/>: <Navigate to={"/login"}/>}/>      
       <Route path='/owner/tables' element={ownerToken?<OwnerTables/>: <Navigate to={"/login"}/>}/>      
       <Route path='/product/:account/:id' element={userToken? <Product/>: <Navigate to={'/'}/>}/>      

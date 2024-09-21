@@ -1,6 +1,6 @@
 import { FaCheck, FaEdit, FaTrash } from "react-icons/fa"
 import OwnerLayout from "../../layout/OwnerLayout/OwnerLayout"
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useContext } from 'react'
 import Img2 from '../../assets/images/Gluten Free Strawberry Cheesecake Pancakes Image.jpeg'
 import Img3 from '../../assets/images/Grilled Tandoori Chicken with Indian-Style Rice.jpeg'
 import Img4 from '../../assets/images/Pizza Recipes.jpeg'
@@ -8,10 +8,11 @@ import Loading from "../../components/Loading/Loading"
 import axios from "axios"
 import { API } from "../../api"
 import changeToSyrianTime from "../../helpers/changeToSyrianTime"
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { startTimer } from "../../helpers/setIntervalBySetTimeOut"
 import { useAlertHooks } from "../../hooks/useAlertHooks"
 import Toast from '../../components/Toast/Toast'
+import { tableContext } from "../../context/tableContext"
 
 const OwnerOrders = () => {
     const [show, setShow] = useState("new");
@@ -20,6 +21,8 @@ const OwnerOrders = () => {
     const [data, setData] = useState([]);
 
     const [loading, setLoading] = useState(false)
+
+    const { id } = useParams();
 
     const initial = useRef();
 
@@ -51,7 +54,7 @@ const OwnerOrders = () => {
 
         setLoading(true)
 
-        const fetchData = () => axios.get(API.ORDER.GETCARTS, {
+        const fetchData = () => axios.get(API.ORDER.GETCARTS+id, {
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('owner'),
             }
@@ -143,7 +146,7 @@ const OwnerOrders = () => {
     const [showReadAll, setShowReadAll] = useState(false)
 
     const handleReadAll = () => {
-        axios.put(API.ORDER.READALLCARTS, null, {
+        axios.put(API.ORDER.READALLCARTS+id, null, {
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('owner')
             }
@@ -161,22 +164,24 @@ const OwnerOrders = () => {
             })
     }
 
+    const { dispatch: tableDispatch } = useContext(tableContext)
+
+    useEffect(() => {
+        tableDispatch({ type: 'REMOVE', payload: "o"+id })
+    }, [])
+
     return (
         <OwnerLayout>
             <div className="w-full">
                 <h1 className="flex justify-between items-center gap-2">
-                    <span className="font-bold text-[1.5rem]">قائمة الطلبات</span>
-                    <Link to={'/owner/all-orders'} className="flex justify-center items-center gap-2 text-[#1FA5B8] font-bold duration-300 hover:translate-x-[-5px]">
-                        <div>عرض الكل</div>
-                        <div>{">"}</div>
-                    </Link>
+                    <span className="font-bold text-[1.5rem]">قائمة الطلبات للطاولة {id}</span>
                 </h1>
                 <div className="flex items-center gap-5 mt-5">
                     <div className="px-5 py-2 text-white bg-[#1FA5B8] duration-300 hover:scale-105 shadow-md cursor-pointer rounded-md" onClick={() => setShow("new")}>جديدة</div>
                     <div className="px-5 py-2 text-white bg-[#1FA5B8] duration-300 hover:scale-105 shadow-md cursor-pointer rounded-md" onClick={() => setShow("now")}>مقروء</div>
                 </div>
                 <div>
-                    {show === 'new' && <div className="px-5 py-2 text-white bg-black duration-300 hover:scale-105 shadow-md cursor-pointer rounded-md w-fit mt-5" onClick={() => setShowReadAll(true)}>قراءة الكل</div>}
+                    {show === 'new' && orders.length !== 0 && <div className="px-5 py-2 text-white bg-black duration-300 hover:scale-105 shadow-md cursor-pointer rounded-md w-fit mt-5" onClick={() => setShowReadAll(true)}>قراءة الكل</div>}
                 </div>
                 <Loading loading={loading}/>
                 <div className="grid grid-cols-1 gap-[16px] mt-[24px]">

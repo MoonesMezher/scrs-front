@@ -60,7 +60,7 @@ export const API = {
         GETSTATISTICS: url+'orders/statistics',
         GETONE: url+'orders/',
         GETONECART: url+'orders/cart/',
-        GETCARTS: url+'orders/carts',
+        GETCARTS: url+'orders/carts/',
         ADD: url+'orders/',
         ADDTOCART: url+'orders/add-to-cart/',
         CHANGETIME: url+'orders/change-time/',
@@ -73,7 +73,8 @@ export const API = {
         ALLCARTSBYPAGE: url+'orders/carts-by-page/',
         GETCHECKOUTOFTABLE: url+'orders/all-data-by-table/',
         RESETSTATISTICS: url+'orders/reset',
-        READALLCARTS: url+'orders/read-all'
+        READALLCARTS: url+'orders/read-all/',
+        DELETEALL: url+'orders/all'
     },
     MESSAGES: {
         GETALL: url+'messages/',
@@ -82,6 +83,7 @@ export const API = {
         ADDCOMIC: url+'messages/comec/',
         ADDCHECK: url+'messages/check/',
         READ: url+'messages/read/',
+        READALL: url+'messages/read-all/',
         DELETE: url+'messages/',
     },
     SERVICES: {

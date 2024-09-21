@@ -107,10 +107,10 @@ const Shop = () => {
                 if(res.data.state === 'success') {
                     setPrice(res.data.price)
                     setShow5('تم تأكيد الطلب بنجاح')
-                    socket?.emit('send', {accId: acc?.account?._id, type: 'orders'})
-                    setTimeout(() => {
+                    socket?.emit('send', {accId: acc?.account?._id, type: 'orders', table: acc.table})
+                    // setTimeout(() => {
                         to('/show/'+acc?.token)
-                    }, 1000)
+                    // }, 1000)
                 }
             })
             .catch(err => {    

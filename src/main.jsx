@@ -8,6 +8,7 @@ import { ToastContainer } from 'react-toastify'
 import { AlertProvider } from './context/alertContext.jsx'
 import { AccountProvider } from './context/accountContext.jsx'
 import { SocketProvider } from './context/socketContext.jsx'
+import { TableProvider } from './context/tableContext.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <BrowserRouter>
@@ -21,9 +22,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       />
         <SocketProvider>
           <AlertProvider>
-            <AccountProvider>
-              <App />
-            </AccountProvider>
+            <TableProvider>
+              <AccountProvider>
+                <App />
+              </AccountProvider>
+            </TableProvider>
           </AlertProvider>
         </SocketProvider>
     </BrowserRouter>

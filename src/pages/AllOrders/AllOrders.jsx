@@ -3,6 +3,7 @@ import OwnerLayout from "../../layout/OwnerLayout/OwnerLayout"
 import axios from "axios"
 import { API } from "../../api"
 import changeToSyrianTime from "../../helpers/changeToSyrianTime"
+import Toast from '../../components/Toast/Toast'
 
 const AllOrders = () => {
     const [carts, setCarts] = useState([])
@@ -10,6 +11,7 @@ const AllOrders = () => {
     const [page, setPage] = useState(1)    
     const [pages, setPages] = useState();
     const [total, setTotal] = useState();
+    const [change, setChange] = useState(false);
 
     useEffect(() => {
         setLoading(true);
@@ -21,7 +23,7 @@ const AllOrders = () => {
         })
             .then(res => {
                 if(res.data.state === 'success') {
-                    console.log(res.data)
+                    // console.log(res.data)
                     setCarts(res.data.data)
                     setPages(res.data.pages)
                     setTotal(res.data.total);
@@ -32,8 +34,31 @@ const AllOrders = () => {
             .finally(res => {
                 setLoading(false);
             })
-
     }, [page])
+
+    const [deleteAll, setDeleteAll] = useState(false);
+
+    const handleDeleteAll = () => {
+        setLoading(true);
+
+        axios.delete(API.ORDER.DELETEALL, {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('owner')
+            }
+        })
+            .then(res => {
+                if(res.data.state === 'success') {
+                    setChange(!change)                
+                }
+            })
+            .catch(err => {
+                // console.log(err)
+            })
+            .finally(res => {
+                setLoading(false);
+                setDeleteAll(false)
+            })
+    }
     
     return (
         <OwnerLayout>
@@ -42,7 +67,14 @@ const AllOrders = () => {
                     <span className="font-bold text-[1.5rem]">{'كل الطلبات'}</span>
                     <span className="font-bold text-[1.5rem]">{total}</span>
                 </h1>
-                {true && <div className="flex justify-center items-center gap-[20px]">
+                <Toast show={deleteAll} message={'هل أنت متأكد من أنك تريد حذف كل الطلبات السابقة؟'}>
+                    <div className="flex justify-center items-center gap-5 mt-5">
+                        <div className="w-[100px] p-2 cursor-pointer rounded-[10px] bg-red-500 text-white duration-300 hover:scale-105 shadow-md flex justify-center items-center" onClick={() => setDeleteAll(false)}>لا</div>
+                        <div className="w-[100px] p-2 cursor-pointer rounded-[10px] bg-green-500 text-white duration-300 hover:scale-105 shadow-md flex justify-center items-center" onClick={handleDeleteAll}>نعم</div>
+                    </div>
+                </Toast>
+                {total !== 0 && <h2 className="p-2 bg-black text-white rounded-md w-fit my-5 cursor-pointer duration-300 hover:scale-105" onClick={() => setDeleteAll(true)}>حذف الكل</h2>}
+                {total !== 0 && <div className="flex justify-center items-center gap-[20px]">
                     {page !== 1 && <div className="text-[2rem] cursor-pointer duration-300 hover:text-cyan-500 font-bold" onClick={() => setPage(page - 1)}>{'<'}</div>}            
                     <div className="text-[2rem] font-bold">{page}</div>
                     {page !== pages && <div className="text-[2rem] cursor-pointer duration-300 hover:text-cyan-500 font-bold" onClick={() => setPage(page + 1)}>{'>'}</div>}

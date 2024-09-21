@@ -20,6 +20,7 @@ const SocketProvider = ({ children }) => {
             setSocket(ssocket);
             // console.log("SOCKET: ", ssocket.id);
         });
+
     }, []);
 
     return (

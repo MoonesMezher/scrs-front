@@ -118,7 +118,7 @@ const Show = () => {
             .then(res => {
                 if(res.data.state === 'success') {
                     setShow3('سوف يأتي خلال لحظات')                        
-                    socket?.emit('send', {accId: acc?.account?._id, type: 'messages'})
+                    socket?.emit('send', {accId: acc?.account?._id, type: 'messages', table: acc.table})
                 }
             })
             .catch(err => {

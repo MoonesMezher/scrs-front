@@ -78,7 +78,7 @@ const Check = ({ setUser }) => {
                 if(res.data.state === 'success') {
                     localStorage.setItem('user', res.data.token)
                     setUser(res.data.token);
-                    socket?.emit('send', {accId: acc?.account?._id, type: 'tables'})
+                    socket?.emit('send', {accId: acc?.account?._id, type: 'tables', table: acc.table})
                     to('/show/'+account)
                 }
             })
