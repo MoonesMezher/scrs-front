@@ -175,6 +175,10 @@ const OwnerOrders = () => {
             <div className="w-full">
                 <h1 className="flex justify-between items-center gap-2">
                     <span className="font-bold text-[1.5rem]">قائمة الطلبات للطاولة {id}</span>
+                    <Link to={'/owner/orders'} className="flex justify-center items-center gap-2 text-[#1FA5B8] font-bold duration-300 hover:translate-x-[-5px]">
+                        <div>رجوع</div>
+                        <div>{">"}</div>
+                    </Link> 
                 </h1>
                 <div className="flex items-center gap-5 mt-5">
                     <div className="px-5 py-2 text-white bg-[#1FA5B8] duration-300 hover:scale-105 shadow-md cursor-pointer rounded-md" onClick={() => setShow("new")}>جديدة</div>
