@@ -3,13 +3,14 @@ import Logo from '../../../assets/images/log.webp'
 import { FaGear } from 'react-icons/fa6'
 import { MdCoffee, MdDeliveryDining, MdOutlineDynamicFeed, MdOutlineTableBar, MdSpaceDashboard } from 'react-icons/md'
 import { LuMessagesSquare } from 'react-icons/lu'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import { API, main } from '../../../api'
 import Loading from '../../../components/Loading/Loading'
 import { FaChartBar, FaTable } from 'react-icons/fa'
 import { useAlertHooks } from '../../../hooks/useAlertHooks'
 import { startTimer } from '../../../helpers/setIntervalBySetTimeOut'
+import { SocketContext } from '../../../context/socketContext'
 
 
 const LeftSideBar = () => {
@@ -51,6 +52,24 @@ const LeftSideBar = () => {
             new: false,
         },
     ]
+
+    const { socket } = useContext(SocketContext);
+
+    useEffect(() => {
+        axios.get(API.ACCOUNT.GETACCID, {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('owner')
+            }
+        })
+        .then(res => {
+            if(res.data.state === 'success') {
+                socket.emit('addAccount', { accId: res.data.data })
+            }
+        })
+        .catch(err => {
+
+        })
+    }, [socket, window.location])
 
     const { pathname } = useLocation();
 

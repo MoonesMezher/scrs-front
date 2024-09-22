@@ -7,8 +7,6 @@ import Loading from "../../components/Loading/Loading"
 import { SocketContext } from "../../context/socketContext"
 
 const OwnerDash = () => {
-    const { socket } = useContext(SocketContext);
-
     const [sections, setSections] = useState([])
     const [products, setProducts] = useState([])
 
@@ -49,24 +47,6 @@ const OwnerDash = () => {
                 setLoading(false)
             })
     }, []);
-
-    // const { pathname } = useLocation()
-
-    useEffect(() => {
-        axios.get(API.ACCOUNT.GETACCID, {
-            headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('owner')
-            }
-        })
-        .then(res => {
-            if(res.data.state === 'success') {
-                socket.emit('addAccount', { accId: res.data.data })
-            }
-        })
-        .catch(err => {
-
-        })
-    }, [socket, window.location])
 
     return (
         <OwnerLayout>

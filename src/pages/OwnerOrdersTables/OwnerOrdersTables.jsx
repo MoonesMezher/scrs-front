@@ -46,6 +46,7 @@ const OwnerOrdersTables = () => {
                         <div>{">"}</div>
                     </Link>
                 </h1>
+                <Link to={'/owner/add-order'} className="block px-5 py-2 text-white bg-black duration-300 hover:scale-105 shadow-md cursor-pointer rounded-md w-fit mt-2">إدخال يدوي</Link>
                 <Loading loading={loading}/>
                 <div className="grid grid-cols-10 max-[650px]:grid-cols-5 max-[450px]:grid-cols-3 gap-[16px] mt-[24px]">
                     {!loading && data && data.length !== 0 && data.map((e, i) => <div className="shadow-md overflow-hidden bg-white p-[20px] rounded-[16px] flex justify-center items-center flex-col font-bold duration-300 hover:scale-105 cursor-pointer relative" key={i} onClick={() => to('/owner/orders/'+e.table)}>

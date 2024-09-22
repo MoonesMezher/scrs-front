@@ -37,6 +37,7 @@ import Code from './pages/Code/Code'
 import { tableContext } from './context/tableContext'
 import OwnerMessagesTables from './pages/OwnerMessagesTables/OwnerMessagesTables'
 import OwnerOrdersTables from './pages/OwnerOrdersTables/OwnerOrdersTables'
+import OwnerAddOrder from './pages/OwnerAddOrder/OwnerAddOrder'
 
 function App() {
     const { socket } = useContext(SocketContext);
@@ -51,7 +52,7 @@ function App() {
 
     useEffect(() => {  
       socket?.on('recive', data => {
-        console.log("RECIVE:", data)
+        // console.log("RECIVE:", data)
         if(data.type === 'messages') {
             dispatch({ type: 'ADD', payload: 2 })
             tableDispatch({type: 'ADD', payload: 'm'+data.table})
@@ -155,6 +156,8 @@ function App() {
       <Route path='/owner/product/edit/:id' element={ownerToken?<AddProduct/>: <Navigate to={"/login"}/>}/>      
       <Route path='/owner/messages' element={ownerToken?<OwnerMessagesTables/>: <Navigate to={"/login"}/>}/>      
       <Route path='/owner/orders' element={ownerToken?<OwnerOrdersTables/>: <Navigate to={"/login"}/>}/>   
+      <Route path='/owner/add-order' element={ownerToken?<OwnerAddOrder/>: <Navigate to={"/login"}/>}/>   
+      <Route path='/owner/add-order/:id' element={ownerToken?<OwnerAddOrder/>: <Navigate to={"/login"}/>}/>   
       <Route path='/owner/messages/:id' element={ownerToken?<OwnerMessages/>: <Navigate to={"/login"}/>}/>      
       <Route path='/owner/orders/:id' element={ownerToken?<OwnerOrders/>: <Navigate to={"/login"}/>}/>      
       <Route path='/owner/statistcis' element={ownerToken?<OwnerStatistics/>: <Navigate to={"/login"}/>}/>      

@@ -7,6 +7,7 @@ import Img4 from '../../assets/images/Pizza Recipes.jpeg'
 import Loading from "../../components/Loading/Loading"
 import axios from "axios"
 import { API } from "../../api"
+import { useNavigate } from 'react-router-dom'
 import changeToSyrianTime from "../../helpers/changeToSyrianTime"
 import { Link, useParams } from "react-router-dom"
 import { startTimer } from "../../helpers/setIntervalBySetTimeOut"
@@ -25,6 +26,8 @@ const OwnerOrders = () => {
     const { id } = useParams();
 
     const initial = useRef();
+
+    const to = useNavigate()
 
     useEffect(() => {
         initial.current = null;
@@ -170,6 +173,8 @@ const OwnerOrders = () => {
         tableDispatch({ type: 'REMOVE', payload: "o"+id })
     }, [])
 
+    const [edit, setEdit] = useState(false)
+
     return (
         <OwnerLayout>
             <div className="w-full">
@@ -225,12 +230,14 @@ const OwnerOrders = () => {
                                 </div>
                             </h1>
                             <h1 className="p-2 w-fit" dir="ltr">{changeToSyrianTime(e.createdAt)}</h1>
-                            <div className="flex justify-between items-center gap-5 mt-5 w-full">
+                            <div className="flex gap-5 items-center mt-5 w-full">
                                 {show === "new"
                                 ? 
                                 <FaCheck className="cursor-pointer relative z-10 text-green-500 duration-300 hover:scale-105 text-[1.2rem]" onClick={() => setRead(e.id)}/>
                                 : <FaTrash className="cursor-pointer relative z-10 text-red-500 duration-300 hover:scale-105 text-[1.2rem]" onClick={() => setShow5(e.id)}/>
                                 }
+                                {/* {e.id} */}
+                                <FaEdit className="cursor-pointer relative z-10 text-black duration-300 hover:scale-105 text-[1.2rem]" onClick={() => setEdit(e.id)}/>
                             </div>
                             <div className={`absolute left-0 top-0 p-2 px-3 ${show === "new"? "bg-green-700": (show === "now"?"bg-orange-700": "bg-orange-700")} text-white shadow-md`}>
                                 {show === "new"? "جديد": (show === "now"?"تم": "منجز")}
@@ -269,6 +276,12 @@ const OwnerOrders = () => {
                             <div className="w-[100px] p-2 cursor-pointer rounded-[10px] bg-green-500 text-white duration-300 hover:scale-105 shadow-md flex justify-center items-center" onClick={() => handleDelete(show5)}>نعم</div>
                         </div>
                     </div>
+                    <Toast show={edit} message={'هل تريد تعديل الطلب؟'}>
+                        <div className="flex justify-center items-center gap-5 mt-5">
+                            <div className="w-[100px] p-2 cursor-pointer rounded-[10px] bg-red-500 text-white duration-300 hover:scale-105 shadow-md flex justify-center items-center" onClick={() => setEdit(false)}>لا</div>
+                            <div className="w-[100px] p-2 cursor-pointer rounded-[10px] bg-green-500 text-white duration-300 hover:scale-105 shadow-md flex justify-center items-center" onClick={() => to('/owner/add-order/'+edit)}>نعم</div>
+                        </div>
+                    </Toast>
                 </div>
             </div>
         </OwnerLayout>

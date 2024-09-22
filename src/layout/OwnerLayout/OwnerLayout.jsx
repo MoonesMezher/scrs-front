@@ -19,7 +19,7 @@ const OwnerLayout = ( { children } ) => {
             <MobileNavBar/>
             <LeftSideBar/>
             <div className="bg-[#F9F9F9] py-[56px] px-[40px] min-[1021px]:ms-[345px] min-[1300px]:me-[300px] min-[1600px]:me-[455px] min-h-screen max-[700px]:pt-[0px] max-[1020px]:pt-[250px] max-[1300px]:pt-[250px]">
-                <div className="w-full max-[1020px]:hidden">
+                {!location?.pathname?.includes("add-order") && <div className="w-full max-[1020px]:hidden">
                     <div className="flex justify-between items-center">
                         <h1 className="text-[2.25rem] font-bold text-[#2E2E2E]">Hello {localStorage?.getItem("resturantName")? localStorage?.getItem("resturantName"):'Admin'}</h1>
                         <h1 className="text-[2.25rem] font-bold text-[#2E2E2E] flex gap-2 flex-row-reverse">SCRS
@@ -35,7 +35,7 @@ const OwnerLayout = ( { children } ) => {
                             <h2 className="md:pe-[200px] leading-[30px] font-bold">قم بإدارة مطعمك بكل سهولة مع سبارك من خلال ما تقدمه لك من سلاسة بتلقي الطلبات وجدولتها وإضافة منتجاتك والتحكم باللوغو والهوية البصرية الخاصة بك وغيرها الكثير من المميزات.</h2>
                         </div>
                     </div>
-                </div>
+                </div>}
                 <div className="pt-[40px]" dir="rtl">
                     { children }
                 </div>

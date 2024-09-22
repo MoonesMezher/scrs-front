@@ -1,7 +1,7 @@
-export const main = 'http://127.0.0.1:8000/'
+// export const main = 'http://127.0.0.1:8000/'
 // export const main = 'https://scrs-mgkb.onrender.com/'
 // export const main = 'https://scrss.onrender.com/'
-// export const main = 'http://scrs.superquizgame.com/'
+export const main = 'http://scrs.superquizgame.com/'
 
 const url = `${main}api/`;
 
@@ -74,7 +74,8 @@ export const API = {
         GETCHECKOUTOFTABLE: url+'orders/all-data-by-table/',
         RESETSTATISTICS: url+'orders/reset',
         READALLCARTS: url+'orders/read-all/',
-        DELETEALL: url+'orders/all'
+        DELETEALL: url+'orders/all',
+        ADDBYADMIN: url+'orders/by-admin'
     },
     MESSAGES: {
         GETALL: url+'messages/',
